@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_URL = '/api/auth';
+const BASE_URL = import.meta.env.VITE_API_URL || '';
+const API_URL = `${BASE_URL}/api/auth`;
 
 // Safely parse JSON — avoids crash when backend is down or returns non-JSON
 async function safeJson(res) {
