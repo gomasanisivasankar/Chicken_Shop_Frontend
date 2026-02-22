@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': 'https://chicken-shop-backend-m6gu.vercel.app/'
+      '/api': 'https://chicken-shop-backend-n0a7.onrender.com'
     }
   }
 })
