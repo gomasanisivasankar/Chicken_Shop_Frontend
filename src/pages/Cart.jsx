@@ -31,54 +31,52 @@ export default function Cart() {
             <div className="max-w-4xl mx-auto px-5 py-10">
                 <h1 className="text-3xl font-extrabold text-gray-800 mb-8">Your Cart</h1>
 
-                {/* Cart items */}
                 <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
                     {items.map((item, idx) => (
-                        <div key={item._id} className={`flex items-center gap-4 p-4 ${idx !== items.length - 1 ? 'border-b border-gray-100' : ''}`}>
-                            <img
-                                src={item.image || 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400'}
-                                alt={item.name}
-                                className="w-16 h-16 rounded-lg object-cover flex-shrink-0"
-                            />
-                            <div className="flex-1 min-w-0">
-                                <h3 className="font-semibold text-gray-800 truncate">{item.name}</h3>
-                                <p className="text-sm text-gray-400">{item.category}</p>
-                                <p className="text-red-600 font-bold">₹{item.price}/{item.unit}</p>
-                            </div>
-
-                            {/* Quantity control */}
-                            <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+                        <div key={item._id} className={`p-4 ${idx !== items.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                            {/* Top row: image, name, remove */}
+                            <div className="flex items-start gap-3">
+                                <img
+                                    src={item.image || 'https://images.unsplash.com/photo-1587593810167-a84920ea0781?w=400'}
+                                    alt={item.name}
+                                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover flex-shrink-0"
+                                />
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="font-semibold text-gray-800 text-sm sm:text-base truncate">{item.name}</h3>
+                                    <p className="text-xs sm:text-sm text-gray-400">{item.category}</p>
+                                    <p className="text-red-600 font-bold text-sm">₹{item.price}/{item.unit}</p>
+                                </div>
                                 <button
-                                    className="w-8 h-8 rounded-md bg-white border border-gray-200 text-gray-700 font-semibold flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all"
-                                    onClick={() =>
-                                        item.quantity <= 0.5
-                                            ? dispatch(removeFromCart(item._id))
-                                            : dispatch(updateQuantity({ productId: item._id, quantity: item.quantity - 0.5 }))
-                                    }
+                                    onClick={() => dispatch(removeFromCart(item._id))}
+                                    className="text-gray-300 hover:text-red-500 transition-colors text-lg flex-shrink-0 p-1"
                                 >
-                                    −
-                                </button>
-                                <span className="text-sm font-semibold min-w-[40px] text-center">{item.quantity}</span>
-                                <button
-                                    className="w-8 h-8 rounded-md bg-white border border-gray-200 text-gray-700 font-semibold flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all"
-                                    onClick={() => dispatch(updateQuantity({ productId: item._id, quantity: item.quantity + 0.5 }))}
-                                >
-                                    +
+                                    ✕
                                 </button>
                             </div>
 
-                            {/* Item total */}
-                            <div className="text-right min-w-[70px]">
-                                <p className="font-bold text-gray-800">₹{(item.price * item.quantity).toFixed(0)}</p>
+                            {/* Bottom row: quantity + total */}
+                            <div className="flex items-center justify-between mt-3 ml-[62px] sm:ml-[76px]">
+                                <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+                                    <button
+                                        className="w-8 h-8 rounded-md bg-white border border-gray-200 text-gray-700 font-semibold flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all"
+                                        onClick={() =>
+                                            item.quantity <= 0.5
+                                                ? dispatch(removeFromCart(item._id))
+                                                : dispatch(updateQuantity({ productId: item._id, quantity: item.quantity - 0.5 }))
+                                        }
+                                    >
+                                        −
+                                    </button>
+                                    <span className="text-sm font-semibold min-w-[40px] text-center">{item.quantity}</span>
+                                    <button
+                                        className="w-8 h-8 rounded-md bg-white border border-gray-200 text-gray-700 font-semibold flex items-center justify-center hover:bg-red-600 hover:text-white hover:border-red-600 transition-all"
+                                        onClick={() => dispatch(updateQuantity({ productId: item._id, quantity: item.quantity + 0.5 }))}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                                <p className="font-bold text-gray-800 text-base">₹{(item.price * item.quantity).toFixed(0)}</p>
                             </div>
-
-                            {/* Remove */}
-                            <button
-                                onClick={() => dispatch(removeFromCart(item._id))}
-                                className="text-gray-300 hover:text-red-500 transition-colors text-xl"
-                            >
-                                ✕
-                            </button>
                         </div>
                     ))}
                 </div>
