@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchProducts } from '../store/productSlice';
+import { selectCartItems } from '../store/cartSlice';
 import ProductCard from '../components/ProductCard';
 
 const categories = [
@@ -15,6 +17,7 @@ const categories = [
 export default function Menu() {
     const dispatch = useDispatch();
     const { items: products, loading } = useSelector((state) => state.products);
+    const cartItems = useSelector(selectCartItems);
     const [activeCategory, setActiveCategory] = useState('All');
 
     useEffect(() => {
@@ -43,8 +46,8 @@ export default function Menu() {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${activeCategory === cat
-                                    ? 'bg-red-600 text-white shadow-md'
-                                    : 'bg-white text-gray-600 border border-gray-200 hover:border-red-300 hover:text-red-600'
+                                ? 'bg-red-600 text-white shadow-md'
+                                : 'bg-white text-gray-600 border border-gray-200 hover:border-red-300 hover:text-red-600'
                                 }`}
                         >
                             {cat}
@@ -70,6 +73,19 @@ export default function Menu() {
                     </div>
                 )}
             </div>
+
+            {/* Floating Go to Cart button */}
+            {cartItems.length > 0 && (
+                <Link
+                    to="/cart"
+                    className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-6 py-3.5 bg-emerald-600 text-white font-bold rounded-full shadow-lg hover:bg-emerald-700 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 animate-bounce-in"
+                >
+                    🛒 Go to Cart
+                    <span className="bg-white text-emerald-700 text-sm font-extrabold w-6 h-6 rounded-full flex items-center justify-center">
+                        {cartItems.length}
+                    </span>
+                </Link>
+            )}
         </div>
     );
 }
