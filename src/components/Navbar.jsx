@@ -17,7 +17,7 @@ export default function Navbar() {
         navigate('/');
         setMenuOpen(false);
     };
-    
+
 
     const close = () => setMenuOpen(false);
 
@@ -28,7 +28,7 @@ export default function Navbar() {
                 <Link to="/" className="flex items-center gap-2.5 no-underline" onClick={close}>
                     <span className="text-3xl animate-float">🐔</span>
                     <div className="flex flex-col leading-tight">
-                        <span className="text-lg font-extrabold text-red-600 tracking-tight">SLK Chicken</span>
+                        <span className="text-lg font-extrabold text-red-600 tracking-tight">SLP Chicken</span>
                         <span className="text-[0.7rem] font-medium text-gray-400 uppercase tracking-widest">Centre</span>
                     </div>
                 </Link>
