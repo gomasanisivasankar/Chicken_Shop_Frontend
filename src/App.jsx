@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import ProtectedRoute from './components/ProtectedRoute';
-
+import ScrollToTopOnRoute from "./components/ScrollToTopOnRoute"
 import Home from './pages/Home';
 import Menu from './pages/Menu';
 import Cart from './pages/Cart';
@@ -44,6 +44,7 @@ function AppContent() {
   return (
     <>
       <Navbar />
+      <ScrollToTopOnRoute/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
